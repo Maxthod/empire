@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "npx tsc && mkdir -p dist/assets && cp src/assets/*.csv dist/src/assets/",
+    "build": "npx tsc && mkdir -p dist/src/assets && cp src/assets/*.csv dist/src/assets/",
     "start": "node dist/src/server.js",
     "test": "jest"
   },
