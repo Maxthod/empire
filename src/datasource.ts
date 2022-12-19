@@ -56,8 +56,8 @@ const determineHighestPopulationCity = (empire: Empire, new_city: City) => {
 const CsvDataLoader: () => DataLoader<Empire> = () => {
     return {
         load: async function* () {
-            const empires = await streamCsvLines(path.resolve('src', 'assets', 'empires.csv'), constructEmpire)
-            const cities = await streamCsvLines(path.resolve('src', 'assets', 'cities.csv'), constructCity)
+            const empires = await streamCsvLines(path.resolve(__dirname, 'assets', 'empires.csv'), constructEmpire)
+            const cities = await streamCsvLines(path.resolve(__dirname, 'assets', 'cities.csv'), constructCity)
             let cityEntry: CityEntry | void = undefined
             for await (const empireEntry of empires) {
                 const empire: Empire = {
