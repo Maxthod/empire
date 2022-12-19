@@ -19,7 +19,7 @@ type EmpireQuery = {
     filter: string
 }
 
-app.get('/api/v1/empires', async (req: Request<{}, {}, {}, EmpireQuery>, res) => {
+app.get('/api/v1/empires', async (req: Request<{}, {}, {}, EmpireQuery>, res, next) => {
     try {
         const cities = req.query['cities']?.split(",")
         if (!cities) {
@@ -48,10 +48,11 @@ app.get('/api/v1/empires', async (req: Request<{}, {}, {}, EmpireQuery>, res) =>
         }
     } catch (err) {
         console.error(err)
+        next(err)
     }
 })
 
-app.get('/api/v1/cities', async (req: Request<{}, {}, {}, EmpireQuery>, res) => {
+app.get('/api/v1/cities', async (req: Request<{}, {}, {}, EmpireQuery>, res, next) => {
     try {
         const filter = req.query['filter']
         if (filter == 'lowestDensity') {
@@ -66,8 +67,16 @@ app.get('/api/v1/cities', async (req: Request<{}, {}, {}, EmpireQuery>, res) => 
         }
     } catch (err) {
         console.error(err)
+        next(err)
     }
 })
+
+const errorHandler: express.ErrorRequestHandler = (err, req, res, next) => {
+    res.status(500).json({
+        error: "Internal server error"
+    })
+}
+app.use(errorHandler)
 
 const port = process.env.PORT || 3000
 app.listen(port, () => {
