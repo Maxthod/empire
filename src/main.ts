@@ -3,7 +3,6 @@ import { City, Empire } from "model"
 import { cache } from "./cache"
 import { dataLoader } from "./datasource"
 
-
 export const findEmpiresOfCities = async (cities: string[]) => {
     const empiresPromises =
         cities.map(city => cache
