@@ -10,7 +10,7 @@ describe('Empire Cache', () => {
         const { cache } = await import('../src/cache')
 
         // Act
-        const empire = await cache.get('anyname')
+        const empire = await cache.findByEmpireName('anyname')
 
         // Assert
         expect(empire).toBeUndefined()
@@ -26,12 +26,14 @@ describe('Empire Cache', () => {
                 {
                     name: "Sherbrooke",
                     population: 150,
-                    area: 200
+                    area: 200,
+                    density: 7.5
                 },
                 {
                     name: "Magog",
                     population: 50,
-                    area: 25
+                    area: 25,
+                    density: 2
                 }
             ]
         }
@@ -40,7 +42,7 @@ describe('Empire Cache', () => {
         await cache.set(mockEmpire)
 
         // Assert
-        const returnedEmpire = await cache.get(mockEmpire.name)
+        const returnedEmpire = await cache.findByEmpireName(mockEmpire.name)
         expect(returnedEmpire).toEqual(mockEmpire)
     })
 
@@ -54,12 +56,14 @@ describe('Empire Cache', () => {
                 {
                     name: "Sherbrooke",
                     population: 150,
-                    area: 200
+                    area: 200,
+                    density: 7.5
                 },
                 {
                     name: "Magog",
                     population: 50,
-                    area: 25
+                    area: 25,
+                    density: 2
                 }
             ]
         }
@@ -68,7 +72,7 @@ describe('Empire Cache', () => {
         await cache.set(mockEmpire)
 
         // Assert
-        const returnedEmpire = await cache.get("otherempirename")
+        const returnedEmpire = await cache.findByEmpireName("otherempirename")
         expect(returnedEmpire).toBeUndefined()
     })
 
